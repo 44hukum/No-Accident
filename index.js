@@ -1,7 +1,7 @@
 const express = require("express");
 const expressSession = require("express-session");
 const layouts = require('express-ejs-layouts');
-const csrf = require('csurf');
+// const csrf = require('csurf');
 const app = express();
 
 const router = require("./routes/web");
@@ -17,12 +17,12 @@ app.use(express.static("public"));
 app.use(layouts);
 app.set('layoout','layouta','layoutb')
 
-/** USING CSRF */
-app.use(csrf({cookie: true}))
-app.use((req, res, next) => {
-  res.locals._csrfToken = req.csrfToken()
-  next()
-  })
+// /** USING CSRF */
+// app.use(csrf({cookie: true}))
+// app.use((req, res, next) => {
+//   res.locals._csrfToken = req.csrfToken()
+//   next()
+//   })
   
 /** Working with session */
 app.use(
