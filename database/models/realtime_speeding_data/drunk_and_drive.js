@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const drunkAndDriveSchema = new mongoose.Schema(
   {
-    vehicle: [
+    voilation_by: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Vehicle",
+        ref: "User",
       },
     ],
     tilting: {

@@ -1,4 +1,8 @@
 const User = require("../database/models/user_management/users");
+const Inquery = require("../database/models/inquery/inquery");
+const { findByIdAndUpdate } = require("../database/models/user_management/users");
+const PackageRequest = require("../database/models/package/request_for_package");
+
 
 let index = (req, resp, next) => {
   // if (req.session.user) {
@@ -11,7 +15,7 @@ let index = (req, resp, next) => {
 
 
 let login = (req, resp, next) => {
-  resp.render("guest/login", { layout: "layouta" });
+  resp.render("guest/login", { layout: "layouta",err:'' });
 };
 
 
@@ -26,18 +30,18 @@ let logout = (req, resp, next) => {
 
 
 let authenticate_authorize = (req, resp, next) => {
-  User.findOne({ name: req.body.email }).then((user) => {
+  User.findOne({ email: req.body.email }).then((user) => {
     if (user) {
       user.validation(req.body.password.toString()).then((passwordMatch) => {
         if (passwordMatch) {
           req.session.user = user;
           resp.redirect("/");
         } else {
-          resp.send("incorrect password");
+          resp.render("guest/login", { layout: "layouta",err:'Incorrect Password' });
         }
       });
     } else {
-      resp.send("user doesnot exit");
+      resp.render("guest/login", { layout: "layouta",err:'Incorrect Details' });
     }
   });
 };
@@ -46,7 +50,7 @@ let signup = (req, resp, next) => {
   resp.render("guest/signup", { layout: "layouta", error: "" });
 };
 
-let register = (req, resp, next) => {
+let register = (req, resp, next) => { 
   let newUser = new User({
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -55,7 +59,10 @@ let register = (req, resp, next) => {
     phonenumber: req.body.number,
   });
   newUser.save((err, data) => {
-    if (err) console.log("la la ", err);
+    if (err){ 
+      console.log("la la ", err)
+      resp.redirect("/");
+  };
     req.session.user = data;
     resp.redirect("/");
   });
@@ -95,8 +102,7 @@ let apply_for_device = (req, resp, next) => {
 let profile = (req, resp, next) => {
   User.findById(req.session.user["_id"])
     .then((user) => {
-      console.log(user.username)
-      resp.render("user/profile", { layout: "layoutb", user: user });
+       resp.render("user/profile", { layout: "layoutb", user: user });
     })
     .then((err) => {
       //have to handle error
@@ -117,7 +123,6 @@ let update_profile = (req, resp, next) => {
 };
 
 let update_user_contact = (req, resp, next) => {
-
   User.findByIdAndUpdate(req.params.id, {
     address: req.body.address,
     country: req.body.country,
@@ -135,6 +140,67 @@ let update_user_contact = (req, resp, next) => {
       resp.redirect("/profile")})
   };
 
+  let renderer = (req,resp,next)=>{
+    resp.render("user/renderer",{ layout: "layoutc", user: req.session.user })
+  }
+
+  let guest_inqueries = (req,resp,next)=>{ //user inqueries
+     let newInquery =new  Inquery({
+        name: req.body.name,
+        email: req.body.email,
+        details: req.body.details,
+     })
+     newInquery.save((err,data)=>{
+       if(err){
+         console.log("inqieries error",err);
+        }
+        resp.redirect("/");
+     })
+  }
+
+  let view_inqueries = (req,resp,next)=>{
+     let inqueries = Inquery.find({},(err,data)=>{
+       console.log(data)
+       if(err){
+         console.log("inqueries",err)
+       }
+       resp.render('user/inqueries',{layout:'layoutb',user: req.session.user ,data: data})
+     
+     
+      })
+  }
+
+ let update_inquery_status = (req,resp,next)=>{
+   Inquery.findByIdAndUpdate({_id: req.params.id},(err,data)=>{
+    console.log("updated",data)
+    if(err){
+      console.log("inqueries",err)
+    }
+    resp.render('user/inqueries',{layout:'layoutb',user: req.session.user ,data: data})
+  
+   })
+ }
+
+
+ let verify_package = (req, resp, next) => {
+  PackageRequest.find({},(err,data)=>{
+    if (err) {
+      resp.render("user/package_verification.ejs", {
+        layout: "/layoutb",
+        user: req.session.user,
+        package: [],
+      });
+    } else {
+      console.log("package_verification",data);
+      resp.render("user/package_verification.ejs", {
+        layout: "layoutb",
+        user: req.session.user,
+        package: data,
+      });
+    }
+  })
+ }
+
 module.exports = {
   index,
   login,
@@ -144,11 +210,14 @@ module.exports = {
   logout,
   profile,
   user,
-  guides,
-  packages,
-  apply_for_device,
-  update_profile,
+  guides,  
   update_user_contact,
-  change_profile_pic
-
+  change_profile_pic,
+  renderer,
+  guest_inqueries,
+  view_inqueries,
+  update_profile,
+  apply_for_device,
+  update_inquery_status,
+verify_package
 };

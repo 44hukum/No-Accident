@@ -4,7 +4,7 @@
   "description": "no_accident_protocols ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "nodemon"
   },
   "author": "hukum gosain",
@@ -14,6 +14,7 @@
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.6",
     "csurf": "^1.11.0",
+    "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.3",
     "express-ejs-layouts": "^2.5.1",
@@ -21,6 +22,12 @@
     "mongoose": "^6.2.10",
     "multer": "^1.4.4",
     "nodemailer": "^6.7.3",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "serialport": "^10.4.0",
+    "socket.io": "^4.5.0",
+    "socket.io-client": "^4.5.0"
+  },
+  "devDependencies": {
+    "jest": "^28.0.3"
   }
 }

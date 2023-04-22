@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const speedVoilationSchema = new mongoose.Schema(
   {
-    vehicle: [
+    voilation_by: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Vehicle",
+        ref: "User",
       },
     ],
     speed:{

@@ -12,11 +12,18 @@ const userSchema = new mongoose.Schema(
     },
     phonenumber: {
       type: String,
-      unique: true,
+      unique: 'required phonenumber',
+
+    },
+    is_active:{
+      type: String,
+      enum:['active','inactive'],
+      default:'inactive',
     },
     email: {
       type: String,
-      unique: true,
+      unique: 'email already exist',
+      // match: [ /. +\@. +\.. + /, 'Please give a valid email address' ]
     },
     user_type: {
       type: String,
@@ -47,7 +54,6 @@ const userSchema = new mongoose.Schema(
 
 userSchema.pre("save", function (next) {
   let user = this;
-  console.log("aa    ", this.password, "  aaa");
   bcrypt
     .hash(user.password, 10)
     .then((hash) => {

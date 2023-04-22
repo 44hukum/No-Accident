@@ -1,27 +1,22 @@
 const mongoose = require("mongoose");
 const inquerySchema = new mongoose.Schema(
   {
-    user: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Vehicle",
-      },
-    ],
-    name:{
+   name:{
         type:String
     },
-    contact: {
+    email: {
       type: String,
     },
     details:{
         type: String,
     },
-    package_id:{
-        type:String,
-        unique: true
+    status:{
+      type: String,
+      enum:['viewed','not-viewed'],
+      default:'not-viewed'
     }
-  },
+    },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Inquery", accelerometerSchema);
+module.exports = mongoose.model("Inquery", inquerySchema);

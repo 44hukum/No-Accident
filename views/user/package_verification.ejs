@@ -1,0 +1,63 @@
+<body id="page-top">
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content">
+
+           <div class="container-fluid">
+                <h3 class="text-dark mb-4">Verify Package</h3>
+                <div class="row">
+                    <div class="col">
+                        <div class="table-responsive table mt-2" id="dataTable" role="grid"
+                            aria-describedby="dataTable_info">
+                            <table class="table my-0" id="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Vehicle Number</th>
+                                        <th>Vehicle Type</th>
+                                        <th>Requested_by</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%for(let i=0;i<package.length;i++){%>
+
+                                        <tr>
+
+                                            <td>
+                                                <%=package[i].first_name %>  <%= package[i].last_name %>
+                                            </td>
+                                            <td>
+                                                <%=package[i].vehicle_number %>
+                                            </td>
+                                            <td>
+                                                <%=package[i].vehicle_type %>
+                                            </td>
+                                            <td>
+                                                <%=package[i].requested_by %>
+                                            </td>
+                                            <td>
+
+                                                <a href="<%=``%>">
+                                                    <i class="fa fa-check" data-bs-toggle="tooltip" data-bss-tooltip=""
+                                                        data-bs-placement="bottom" style="color: rgb(255, 0, 0);"
+                                                        title="verify"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+
+
+                                        <%}%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/theme.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<body id="page-top">
+    <div class="d-flex flex-column" id="content-wrapper">
+        <div id="content" style="border-color: rgb(255, 255, 255)">
+
+
+            <div class="container-fluid">
+                <h3 class="text-dark d-xl-flex justify-content-xl-center mb-4">
+                   Add user
+                   
+                </h3>
+               
+                <div class="row">               
+                    
+                    <div class="col d-xl-flex justify-content-xl-center">
+                        <form action="/admin/add_user" method="post" class="flex-row" style="width: 50%">
+                            <div class="flex-column align-items-center" style="padding: 8px; width: 100%">
+                                <div style="margin-bottom: 16px">
+                                        <input class="border rounded-0 form-control" type="text" name="first_name"
+                                                 placeholder="First Name" required />
+                                </div>
+
+
+                                <div style="margin-bottom: 16px">
+                                   <input class="border rounded-0 form-control" type="text" name="last_name"
+                                        placeholder="Last Name" required/>
+                                </div>
+
+                                <div style="margin-bottom: 16px">
+                                    <input class="border rounded-0 form-control" type="text" name="email"
+                                         placeholder="email" required/>
+                                 </div>
+
+                                 <div style="margin-bottom: 16px">
+                                    <input class="border rounded-0 form-control" type="text" name="phonenumber"
+                                         placeholder="phonenumber" required/>
+                                 </div>
+
+                                 <div style="margin-bottom: 16px">
+                                    <input class="border rounded-0 form-control" type="password" name="password"
+                                         placeholder="password" value="admin321" required/>
+                                 </div>
+
+                               <div style="margin-bottom: 16px">
+                                <select class="border rounded-0 form-select" name="user_type" required>
+                                      
+                                            <option value="admin">admin</option>
+                                            <option  value="user">user</option>
+                                            <option  value="police">police</option>
+                                   
+                                    </select>
+                                </div>
+                            </div>
+                            <button class="btn btn-light btn-sm border rounded-0" type="submit" style="width: 100%">
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
