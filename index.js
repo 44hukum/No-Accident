@@ -25,12 +25,12 @@ app.use(express.static("public"));
 app.use(layouts);
 app.set('layoout','layouta','layoutb')
 
-/** USING CSRF */
-// app.use(csrf({cookie: true}))
-// app.use((req, res, next) => {
-//   res.locals._csrfToken = req.csrfToken()
-//   next()
-//   })
+// /** USING CSRF */
+// // app.use(csrf({cookie: true}))
+// // app.use((req, res, next) => {
+// //   res.locals._csrfToken = req.csrfToken()
+// //   next()
+// //   })
   
 /** Working with session */
 
